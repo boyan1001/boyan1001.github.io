@@ -1,6 +1,6 @@
 
 <!DOCTYPE html>
-<html lang="en">
+<html lang="zh-TW">
 <head>
     <meta charset="utf-8" />
     <title>吐司の程式世界</title>
@@ -166,7 +166,7 @@
         <span class="info">
             <div class="wrap">
                 <h1>吐司の程式世界</h1>
-                <h3></h3>
+                <h3>Toast Coding World</h3>
                 <h5></h5>
             </div>
         </span>
@@ -186,6 +186,15 @@
     </a>
     <div class="category-and-date">
         
+        <span class="category">
+            <a href="/categories/%E8%A7%A3%E9%A1%8C%E6%97%A5%E8%A8%98/">
+                <span class="icon">
+                    <i class="fa-solid fa-bookmark fa-fw"></i>
+                </span>
+                解題日記
+            </a>
+        </span>
+        
         <span class="date">
             <span class="icon">
                 <i class="fa-solid fa-calendar fa-fw"></i>
@@ -198,184 +207,7 @@
     <div class="description">
         <div class="content" v-pre>
             
-            <p><strong>topic: <code>dfs</code> <code>bfs</code> <code>matrix</code></strong></p>
-<h2 id="題目原文"><a href="#題目原文" class="headerlink" title="題目原文"></a>題目原文</h2><p>題目連結: <a target="_blank" rel="noopener" href="https://leetcode.com/problems/count-sub-islands/description/?envType=daily-question&envId=2024-08-28">點我</a>  </p>
-<p>You are given two <code>m x n</code> binary matrices <code>grid1</code> and <code>grid2</code> containing only <code>0</code>‘s (representing water) and <code>1</code>‘s (representing land). An <strong>island</strong> is a group of <code>1</code>‘s connected <strong>4-directionally</strong> (horizontal or vertical). Any cells outside of the grid are considered water cells.  </p>
-<p>An island in <code>grid2</code> is considered a <strong>sub-island</strong> if there is an island in <code>grid1</code> that contains <strong>all</strong> the cells that make up <strong>this</strong> island in <code>grid2</code>.  </p>
-<p>Return the <em><strong>number</strong></em> of islands in <code>grid2</code> that are considered <em><strong>sub-islands.</strong></em>  </p>
-<p><strong>Example 1:</strong>  </p>
-<p><img src="https://hackmd.io/_uploads/ryIhBmhjC.png"> </p>
-<blockquote>
-<p><strong>Input:</strong><br>grid1 &#x3D; [[1, 1, 1, 0, 0], [0, 1, 1, 1, 1], [0, 0, 0, 0, 0], [1, 0, 0, 0, 0], [1, 1, 0, 1, 1]],<br>grid2 &#x3D; [[1, 1, 1, 0, 0], [0, 0, 1, 1, 1], [0, 1, 0, 0, 0], [1, 0, 1, 1, 0], [0, 1, 0, 1, 0]]<br><strong>Output:</strong><br>3<br><strong>Explanation:</strong><br>In the picture above, the grid on the left is grid1 and the grid on the right is grid2.<br>The 1s colored red in grid2 are those considered to be part of a sub-island. There are three sub-islands.</p>
-</blockquote>
-<p><strong>Example 2:</strong>  </p>
-<p><img src="https://hackmd.io/_uploads/SkVr8Q2jR.png">  </p>
-<blockquote>
-<p><strong>Input:</strong><br>grid1 &#x3D; [[1, 0, 1, 0, 1], [1, 1, 1, 1, 1], [0, 0, 0, 0, 0], [1, 1, 1, 1, 1], [1, 0, 1, 0, 1]],<br>grid2 &#x3D; [[0, 0, 0, 0, 0], [1, 1, 1, 1, 1], [0, 1, 0, 1, 0], [0, 1, 0, 1, 0], [1, 0, 0, 0, 1]]<br><strong>Output:</strong><br>2<br><strong>Explanation:</strong><br>In the picture above, the grid on the left is grid1 and the grid on the right is grid2.<br>The 1s colored red in grid2 are those considered to be part of a sub-island. There are two sub-islands.</p>
-</blockquote>
-<p><strong>Constraints:</strong>  </p>
-<ul>
-<li><code>m == grid1.length == grid2.length</code>  </li>
-<li><code>n == grid1[i].length == grid2[i].length</code>  </li>
-<li><code>1 &lt;= m, n &lt;= 500</code>  </li>
-<li><code>grid1[i][j]</code> and <code>grid2[i][j]</code> are either <code>0</code> or <code>1</code>.</li>
-</ul>
-<h2 id="題解"><a href="#題解" class="headerlink" title="題解"></a>題解</h2><p>題目中給我們兩張一樣大的地圖分別為 <code>grid1</code> 與 <code>grid2</code>，兩張地圖由 <code>0</code> 和 <code>1</code> 組成，分別代表海洋與陸地，因此可從兩張地圖中看出島嶼的位置。  </p>
-<p>若在 <code>grid2</code> 上的某座島嶼對應到 <code>grid1</code> 上時，<strong>整座島嶼</strong>都位於 <code>grid1</code> 中的<strong>一座島嶼</strong>上，則可稱位於<code>grid2</code>的該島嶼為**子島嶼(Sub-island)**。本題想要我們找出在 <code>grid2</code> 上的所有子島嶼。  </p>
-<h2 id="想一想"><a href="#想一想" class="headerlink" title="想一想"></a>想一想</h2><p>本題的邊長上限不大（最大地圖為<code>500*500</code>），基本上可以用基本的 <strong>深度優先搜尋（Depth First Search，DFS）</strong> 與 <strong>廣度優先搜尋（Breadth First Search，BFS）</strong> 來做處理。  </p>
-<h2 id="方法1-DFS"><a href="#方法1-DFS" class="headerlink" title="方法1: DFS"></a>方法1: DFS</h2><h3 id="描述"><a href="#描述" class="headerlink" title="描述"></a>描述</h3><p><del>dfs相信大家都很熟悉了把XD</del></p>
-<p><strong>深度優先搜尋（Depth First Search，DFS）</strong> 簡單來說就是透過一連串的遞迴（recursion）來對樹（tree）、圖（graph）等資料結構進行搜尋。這種演算法會盡可能的往樹或圖的深處走，因此稱為深度優先搜尋。</p>
-<p><img src="https://hackmd.io/_uploads/BkrxGB2oC.jpg" alt="圖片來源: 自己"><br>上圖範例的走訪順序為: <strong>A-&gt;B-&gt;C-&gt;D-&gt;E-&gt;F</strong></p>
-<p>上方的走訪方式是<strong>二元樹走訪</strong>中的**先序遍歷(Preorder Traversal)**，之後有時間會再寫一篇文來介紹二元樹走訪。</p>
-<p>以本題為例，我們會遍歷一次所有格子。在遍歷的途中，我們會對每個<strong>符合子島嶼條件</strong>的點做DFS，遍歷完後便可得到子島嶼總數。</p>
-<p>每次<strong>DFS</strong>中，我們會針對每個點做以下三件事：  </p>
-<ol>
-<li>對該點做邊界檢測：若超出地圖邊界，回傳<code>0</code>  </li>
-<li>偵測該點是否為海：若為海，回傳<code>0</code>  </li>
-<li>偵測該點是否為<strong>違反子島嶼規則</strong>的陸地：若違反規則，則回傳<code>-1</code>  </li>
-<li>對上、下、左、右四個相鄰點做DFS  </li>
-<li>將該點的值改為<code>0</code>，避免重複走訪</li>
-</ol>
-<p>必須要整座島嶼的陸地皆符合<strong>子島嶼規則</strong>，該島嶼才能稱作是子島嶼</p>
-<h3 id="Code"><a href="#Code" class="headerlink" title="Code:"></a>Code:</h3><pre><code class="cpp">// Author: Toast1001
-// Method: dfs
-// TC: O(n*m)
-// SC: O(n*m)
-
-static const auto Init = []&#123;
-    ios::sync_with_stdio(false); 
-    cin.tie(nullptr);
-    return nullptr;
-&#125;();
-
-class Solution &#123;
-public:
-    int countSubIslands(vector&lt;vector&lt;int&gt;&gt;&amp; grid1, vector&lt;vector&lt;int&gt;&gt;&amp; grid2) &#123;
-        int32_t ans = 0; // sub-islands 總數
-        
-        // 遍歷 grid2 上所有點
-        for(int32_t i = 0;i &lt; grid2.size();i++)&#123;
-            for(int32_t j = 0;j &lt; grid2[0].size();j++)&#123;
-                // 若該點符合 sub-island 規則，則進行 dfs
-                if(grid1[i][j] == 1 &amp;&amp; grid2[i][j] == 1)&#123;
-                    int32_t temp = dfs(i, j, grid1, grid2);
-                    if(temp == 1)ans++; // 若該點所連結的所有陸地可組合成一座 sub-island，則總數加一
-                &#125;
-            &#125;
-        &#125;
-        return ans; // 回傳 sub-island 總數
-    &#125;
-    
-private:
-    // 方位陣列（dfs 用）
-    int32_t dir[4][2] = &#123;&#123;0, 1&#125;, &#123;1, 0&#125;, &#123;0, -1&#125;, &#123;-1, 0&#125;&#125;;
-    
-    // dfs
-    int32_t dfs(int32_t i, int32_t j, vector&lt;vector&lt;int32_t&gt;&gt;&amp; grid1, vector&lt;vector&lt;int32_t&gt;&gt;&amp; grid2)&#123;
-        int32_t ans = 1; // 回傳值預設1
-        if(i &lt; 0 || i &gt;= grid2.size() || j &lt; 0 || j &gt;= grid2[0].size())return 0; // 邊界檢測
-        if(grid2[i][j] == 0)return 0; // 檢測是否為海洋
-        
-        // 檢測是否為違反 sub-island 規則的陸地
-        if(grid1[i][j] == 0)&#123;
-            ans = -1;
-        &#125;
-        
-        grid2[i][j] = 0; // 更新該點為海洋
-        
-        // 對周圍四點做 dfs
-        for(int32_t k = 0;k &lt; 4;k++)&#123;
-            
-            // 若周圍有陸地違反 sub-island 規則
-            // 則與該點相連的陸塊皆不符合違反 sub-island 規則
-            // 必須用 -1 紀錄
-            ans = min(ans, dfs(i + dir[k][0], j + dir[k][1], grid1, grid2));
-        &#125;
-        
-        if(ans == -1)return ans; // 若該島嶼違反 sub-island 規則，回傳 -1
-        return 1;
-    &#125;
-&#125;;
-</code></pre>
-<h3 id="時間複雜度（Time-Complexity）：O-n-m"><a href="#時間複雜度（Time-Complexity）：O-n-m" class="headerlink" title="時間複雜度（Time Complexity）：O(n*m)"></a>時間複雜度（Time Complexity）：O(n*m)</h3><h3 id="空間複雜度（Time-Complexity）：O-n-m"><a href="#空間複雜度（Time-Complexity）：O-n-m" class="headerlink" title="空間複雜度（Time Complexity）：O(n*m)"></a>空間複雜度（Time Complexity）：O(n*m)</h3><h3 id="結果"><a href="#結果" class="headerlink" title="結果"></a>結果</h3><p>由於在做 DFS 的時候都有把走訪過的點紀錄，使所有點最多只會走訪一次，本質上就是在遍歷二維陣列，因此效率較高。</p>
-<p><img src="https://hackmd.io/_uploads/rJTHqP3oR.png" alt="圖片來源: LeetCode"></p>
-<h2 id="方法2-BFS"><a href="#方法2-BFS" class="headerlink" title="方法2: BFS"></a>方法2: BFS</h2><h3 id="描述-1"><a href="#描述-1" class="headerlink" title="描述"></a>描述</h3><p><del>bfs相信大家也很熟悉了把XD</del></p>
-<p><strong>廣度優先搜尋（Breadth First Search，BFS）</strong> 與 DFS 一樣，可用於樹與圖的遍歷。不一樣的是，BFS 會將同一深度的點都走訪完成後，再往下一層前進。這種演算法傾向系統地展開並檢查圖中的所有節點，故稱為廣度優先搜尋。</p>
-<p><img src="https://hackmd.io/_uploads/rygiv82jR.jpg" alt="圖片來源: 自己"><br>上圖範例的走訪順序為: <strong>A-&gt;B-&gt;E-&gt;C-&gt;D-&gt;F</strong></p>
-<p>遍歷時的邏輯大致與 DFS 一樣，在遍歷的途中，我們會對每個<strong>符合子島嶼條件</strong>的點做DFS，遍歷完後便可得到子島嶼總數。</p>
-<h3 id="Code-1"><a href="#Code-1" class="headerlink" title="Code:"></a>Code:</h3><pre><code class="cpp">// Author: Toast1001
-// Method: dfs
-// TC: O(n*m)
-// SC: O(n*m)
-
-static const auto Init = []&#123;
-    ios::sync_with_stdio(false); 
-    cin.tie(nullptr);
-    return nullptr;
-&#125;();
-
-class Solution &#123;
-public:
-    int countSubIslands(vector&lt;vector&lt;int&gt;&gt;&amp; grid1, vector&lt;vector&lt;int&gt;&gt;&amp; grid2) &#123;
-        // 初始化數字
-        int32_t ans = 0; // 子島嶼總數
-        int32_t m = grid2.size();
-        int32_t n = grid2[0].size();
-        bool makeup; // 判斷陸地是否為子島嶼
-        int32_t x, y, nx, ny;
-        queue&lt;int32_t&gt; qx, qy; // 儲存點的queue
-        
-        // 遍歷
-        for(int32_t i = 0;i &lt; m;i++)&#123;
-            for(int32_t j = 0;j &lt; n;j++)&#123;
-                
-                // 若該點在grid2為陸地，則走訪
-                if(grid2[i][j])&#123;
-                    grid2[i][j] = 0; // 更新該點為海洋
-                    makeup = (grid1[i][j] == 1); // 判斷陸地是否為子島嶼
-                    qx.push(i);
-                    qy.push(j);
-                    
-                    // 利用queue做bfs
-                    while(!qx.empty())&#123;
-                        x = qx.front();
-                        y = qy.front();
-                        qx.pop();
-                        qy.pop();
-                        
-                        // 尋找下一個存入queue的點
-                        for(int32_t k = 0;k &lt; 4;k++)&#123;
-                            nx = x + dx[k];
-                            ny = y + dy[k];
-                            
-                            // 邊界檢測與海陸檢測
-                            if(nx &gt;= 0 &amp;&amp; nx &lt; m &amp;&amp; ny &gt;= 0 &amp;&amp; ny &lt; n &amp;&amp; grid2[nx][ny])&#123;
-                                qx.push(nx);
-                                qy.push(ny);
-                                grid2[nx][ny] = 0; // 更新為海洋
-                                makeup &amp;= (grid1[nx][ny] == 1); // 判斷陸地是否為子島嶼
-                            &#125;
-                        &#125;
-                    &#125;
-                    // 若該島嶼為子島嶼，則總數+1
-                    if(makeup)&#123;
-                        ans++;
-                    &#125;
-                &#125;
-            &#125;
-        &#125;
-        return ans;
-    &#125;
-private:
-    int32_t dx[4] = &#123;0, 1, 0, -1&#125;;
-    int32_t dy[4] = &#123;1, 0, -1, 0&#125;;
-&#125;;
-</code></pre>
-<h3 id="時間複雜度（Time-Complexity）：O-n-m-1"><a href="#時間複雜度（Time-Complexity）：O-n-m-1" class="headerlink" title="時間複雜度（Time Complexity）：O(n*m)"></a>時間複雜度（Time Complexity）：O(n*m)</h3><h3 id="空間複雜度（Time-Complexity）：O-n-m-1"><a href="#空間複雜度（Time-Complexity）：O-n-m-1" class="headerlink" title="空間複雜度（Time Complexity）：O(n*m)"></a>空間複雜度（Time Complexity）：O(n*m)</h3><h3 id="結果-1"><a href="#結果-1" class="headerlink" title="結果"></a>結果</h3><p>本題使用 DFS 與 BFS 效率差不多，跑出來的成果都不錯。</p>
-<p><img src="https://hackmd.io/_uploads/r1rNhv2iR.png" alt="圖片來源: LeetCode"></p>
-<h2 id="小結"><a href="#小結" class="headerlink" title="小結"></a>小結</h2><p>這種 DFS 與 BFS 問題常常在面試白板題與競賽中出現，如果學會的話，會對未來很有幫助哦～  </p>
-<p>那就老樣子啦，吐司寫 LeetCode，我們下次見，bye~ bye~</p>
-<h2 id="類題"><a href="#類題" class="headerlink" title="類題"></a>類題</h2><p><strong>LeetCode:</strong><br><a target="_blank" rel="noopener" href="https://leetcode.com/problems/number-of-islands/description/">200. Number of Islands</a><br><a target="_blank" rel="noopener" href="https://leetcode.com/problems/find-all-groups-of-farmland/">1992. Find All Groups of Farmland</a></p>
+            <p>今天是個很常見的圖論題，裡面會用到 <strong>DFS</strong> 與 <strong>BFS</strong> 的方法，算是很經典的題目哦～</p>
 
             
         </div>
@@ -390,7 +222,7 @@ private:
         
         <span class="tag">
             
-            <a href="/tags/LeetCode/" style="color: #ffa2c4">LeetCode</a>
+            <a href="/tags/LeetCode/" style="color: #03a9f4">LeetCode</a>
         </span>
         
         <span class="tag">
@@ -399,7 +231,7 @@ private:
         </span>
         
     </div>
-    <a href="/2024/08/28/hello-world/" class="go-post">阅读全文</a>
+    <a href="/2024/08/28/hello-world/" class="go-post">閱讀全文</a>
 </div>
 
 
