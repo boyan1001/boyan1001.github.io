@@ -55,7 +55,7 @@
             <div id="loading" v-show="loading">
                 <div id="loading-circle">
                     <h2>LOADING</h2>
-                    <p>加载过慢请开启缓存 浏览器默认开启</p>
+                    <p>正在載入中, 請稍後......</p>
                     <img src="/images/eating_cat.gif" />
                 </div>
             </div>
@@ -175,7 +175,7 @@
             
             <span class="tag">
                 
-                <a href="/tags/LeetCode/" style="color: #00bcd4">
+                <a href="/tags/LeetCode/" style="color: #ffa2c4">
                     LeetCode
                 </a>
             </span>
@@ -231,7 +231,7 @@
 <li>將該點的值改為<code>0</code>，避免重複走訪</li>
 </ol>
 <p>必須要整座島嶼的陸地皆符合<strong>子島嶼規則</strong>，該島嶼才能稱作是子島嶼</p>
-<h3 id="Code"><a href="#Code" class="headerlink" title="Code:"></a>Code:</h3><pre><code class="cpp=">// Author: Toast1001
+<h3 id="Code"><a href="#Code" class="headerlink" title="Code:"></a>Code:</h3><pre><code class="cpp">// Author: Toast1001
 // Method: dfs
 // TC: O(n*m)
 // SC: O(n*m)
@@ -297,7 +297,7 @@ private:
 <p><strong>廣度優先搜尋（Breadth First Search，BFS）</strong> 與 DFS 一樣，可用於樹與圖的遍歷。不一樣的是，BFS 會將同一深度的點都走訪完成後，再往下一層前進。這種演算法傾向系統地展開並檢查圖中的所有節點，故稱為廣度優先搜尋。</p>
 <p><img src="https://hackmd.io/_uploads/rygiv82jR.jpg" alt="圖片來源: 自己"><br>上圖範例的走訪順序為: <strong>A-&gt;B-&gt;E-&gt;C-&gt;D-&gt;F</strong></p>
 <p>遍歷時的邏輯大致與 DFS 一樣，在遍歷的途中，我們會對每個<strong>符合子島嶼條件</strong>的點做DFS，遍歷完後便可得到子島嶼總數。</p>
-<h3 id="Code-1"><a href="#Code-1" class="headerlink" title="Code:"></a>Code:</h3><pre><code class="cpp=">// Author: Toast1001
+<h3 id="Code-1"><a href="#Code-1" class="headerlink" title="Code:"></a>Code:</h3><pre><code class="cpp">// Author: Toast1001
 // Method: dfs
 // TC: O(n*m)
 // SC: O(n*m)
