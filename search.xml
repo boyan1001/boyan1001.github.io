@@ -50,7 +50,13 @@
                      src="/images/loading.svg"
                      data-src="https://hackmd.io/_uploads/BkrxGB2oC.jpg"
                       alt="IMG_0183"
-                ><br>上圖範例的走訪順序為: <strong>A-&gt;B-&gt;C-&gt;D-&gt;E-&gt;F</strong><br>:::warning<br>上方的走訪方式是<strong>二元樹走訪</strong>中的<strong>先序遍歷(Preorder Traversal)<strong>，之後有時間會再寫一篇文來介紹二元樹走訪。<br>:::<br>以本題為例，我們會遍歷一次所有格子。在遍歷的途中，我們會對每個</strong>符合子島嶼條件</strong>的點做DFS，遍歷完後便可得到子島嶼總數。</p>
+                ><br>上圖範例的走訪順序為: <strong>A-&gt;B-&gt;C-&gt;D-&gt;E-&gt;F</strong></p>
+
+  <div class="note p-4 mb-4 rounded-small info">
+    <p>上方的走訪方式是<strong>二元樹走訪</strong>中的**先序遍歷(Preorder Traversal)**，之後有時間會再寫一篇文來介紹二元樹走訪。</p>
+
+  </div>
+<p>以本題為例，我們會遍歷一次所有格子。在遍歷的途中，我們會對每個<strong>符合子島嶼條件</strong>的點做DFS，遍歷完後便可得到子島嶼總數。</p>
 <p>每次<strong>DFS</strong>中，我們會針對每個點做以下三件事：  </p>
 <ol>
 <li>對該點做邊界檢測：若超出地圖邊界，回傳<code>0</code>  </li>
@@ -60,8 +66,8 @@
 <li>將該點的值改為<code>0</code>，避免重複走訪</li>
 </ol>
 
-  <div class="note p-4 mb-4 rounded-small info">
-    <p>必須要整座島嶼的陸地皆符合<strong>子島嶼規則</strong>，該島嶼才能稱作是子島嶼</p>
+  <div class="note p-4 mb-4 rounded-small tip">
+    <p><font color="#77FF08"><i class="fa-solid fa-lightbulb"></i></font> 必須要整座島嶼的陸地皆符合<strong>子島嶼規則</strong>，該島嶼才能稱作是子島嶼</p>
 
   </div>
 
